@@ -1,0 +1,11 @@
+.vscode
+node_modules
+dist
+yarn-error.log
+yarn.lock
+package-lock.json
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.DS_Store
