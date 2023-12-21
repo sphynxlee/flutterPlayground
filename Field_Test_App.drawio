@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-21T19:06:51.459Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="v_Btul8lMwsT8y6ogu-_" version="22.1.11" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-21T19:07:36.084Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="kuhh3xdJ9wlSlmMz6xK0" version="22.1.11" type="github">
   <diagram name="Page-1" id="FfccGsqJgMrKl8kAHi3x">
-    <mxGraphModel dx="693" dy="1219" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1291" dy="1558" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -26,7 +26,7 @@
           <mxGeometry x="226" y="830" width="180" height="80" as="geometry" />
         </mxCell>
         <mxCell id="A4l-o2NZdVwnyrjvBV0h-16" value="LocalDataSynchronizer" style="ellipse;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
-          <mxGeometry x="586" y="820" width="224" height="80" as="geometry" />
+          <mxGeometry x="579" y="830" width="224" height="80" as="geometry" />
         </mxCell>
         <mxCell id="A4l-o2NZdVwnyrjvBV0h-17" value="Automatic data&lt;br&gt;collection" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=20;" vertex="1" parent="1">
           <mxGeometry x="60" y="370" width="210" height="96" as="geometry" />
@@ -84,6 +84,12 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="260" y="710" as="sourcePoint" />
             <mxPoint x="310" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="A4l-o2NZdVwnyrjvBV0h-28" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="A4l-o2NZdVwnyrjvBV0h-14">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="740" as="sourcePoint" />
+            <mxPoint x="580" y="870" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
