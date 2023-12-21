@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
           colorScheme:
-              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 237, 6, 41)),
+              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 34, 176, 72)),
         ),
         home: MyHomePage(),
       ),
@@ -33,6 +33,12 @@ class MyAppState extends ChangeNotifier {
     current = WordPair.random();
     notifyListeners();
   }
+
+  var btnCounter = 0;
+  void incrementBtnCounter() {
+    btnCounter++;
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatelessWidget {
@@ -40,22 +46,39 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     var pair = appState.current;
+    var btnCounter = appState.btnCounter;
 
     return Scaffold(
       body: Column(
         children: [
-          Text('A random AWESOME idea:'),
+          HintTitle(),
           BigCard(pair: pair),
           // ↓ Add this.
           ElevatedButton(
             onPressed: () {
               // print('button pressed!');
               appState.getNext();
+              appState.incrementBtnCounter();
             },
-            child: Text('Next >'),
+            child: Text('Next, Btn pressed: $btnCounter'),
           ),
         ],
       ),
+    );
+  }
+}
+
+class HintTitle extends StatelessWidget {
+  const HintTitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // return Text('A random AWESOME idea:');
+    return Text(
+      'A random AWESOME idea:',
+      style: Theme.of(context).textTheme.displaySmall,
     );
   }
 }
@@ -79,7 +102,7 @@ class BigCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Text(
-          pair.asUpperCase,
+          pair.asCamelCase,
           style: style,
         ),
       ),
