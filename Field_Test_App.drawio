@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-21T19:24:09.887Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="_677us4SOpdiFg-JtOS-" version="22.1.11" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-21T19:24:22.962Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="X2gIWYQRUywSOtkmTAd_" version="22.1.11" type="github">
   <diagram name="Page-1" id="FfccGsqJgMrKl8kAHi3x">
     <mxGraphModel dx="2582" dy="2289" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -19,10 +19,10 @@
         <mxCell id="A4l-o2NZdVwnyrjvBV0h-12" value="Collector" style="ellipse;whiteSpace=wrap;html=1;fontSize=20;shadow=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="236" y="160" width="170" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="A4l-o2NZdVwnyrjvBV0h-13" value="NAS,&lt;br&gt;Cloud DB" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=20;shadow=1;" vertex="1" parent="1">
+        <mxCell id="A4l-o2NZdVwnyrjvBV0h-13" value="NAS,&lt;br&gt;Cloud DB" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=20;shadow=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
           <mxGeometry x="1030" y="800" width="200" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="A4l-o2NZdVwnyrjvBV0h-14" value="local datasets&lt;br&gt;(json)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=20;shadow=1;" vertex="1" parent="1">
+        <mxCell id="A4l-o2NZdVwnyrjvBV0h-14" value="local datasets&lt;br&gt;(json)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontSize=20;shadow=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
           <mxGeometry x="226" y="830" width="180" height="80" as="geometry" />
         </mxCell>
         <mxCell id="A4l-o2NZdVwnyrjvBV0h-16" value="LocalDataSynchronizer" style="ellipse;whiteSpace=wrap;html=1;fontSize=20;shadow=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
