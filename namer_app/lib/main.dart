@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme:
-              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 34, 176, 72)),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: Color.fromARGB(255, 205, 191, 68)),
         ),
         home: MyHomePage(),
       ),
@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
-  // ↓ Add this.
   void getNext() {
     current = WordPair.random();
     notifyListeners();
@@ -102,8 +101,9 @@ class BigCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Text(
-          pair.asCamelCase,
+          pair.asLowerCase,
           style: style,
+          semanticsLabel: "{pair.first} {pair.second}",
         ),
       ),
     );
