@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: Color.fromARGB(255, 205, 191, 68)),
+          colorScheme:
+              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 228, 72, 11)),
         ),
         home: MyHomePage(),
       ),
@@ -38,6 +38,16 @@ class MyAppState extends ChangeNotifier {
     btnCounter++;
     notifyListeners();
   }
+
+  var favorites = <WordPair>[];
+  void toggleFavorite() {
+    if (favorites.contains(current)) {
+      favorites.remove(current);
+    } else {
+      favorites.add(current);
+    }
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatelessWidget {
@@ -48,20 +58,37 @@ class MyHomePage extends StatelessWidget {
     var btnCounter = appState.btnCounter;
 
     return Scaffold(
-      body: Column(
-        children: [
-          HintTitle(),
-          BigCard(pair: pair),
-          // ↓ Add this.
-          ElevatedButton(
-            onPressed: () {
-              // print('button pressed!');
-              appState.getNext();
-              appState.incrementBtnCounter();
-            },
-            child: Text('Next, Btn pressed: $btnCounter'),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            HintTitle(),
+            BigCard(pair: pair),
+            SizedBox(height: 20),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    // print('button pressed!');
+                    appState.toggleFavorite();
+                  },
+                  label: Text('Like'),
+                  icon: Icon(Icons.favorite),
+                ),
+                SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // print('button pressed!');
+                    appState.getNext();
+                    appState.incrementBtnCounter();
+                  },
+                  child: Text('Next, Btn pressed: $btnCounter'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -96,6 +123,8 @@ class BigCard extends StatelessWidget {
     var style = theme.textTheme.displayMedium!.copyWith(
       color: theme.colorScheme.onPrimary,
     );
+    print('pair: $pair');
+    print('pair: $pair.first, $pair.second');
     return Card(
       color: theme.colorScheme.primary,
       child: Padding(
