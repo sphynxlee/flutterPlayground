@@ -2,9 +2,9 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import 'favoritePage.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,14 +14,19 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme:
-              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 228, 72, 11)),
-        ),
-        home: MyHomePage(),
-      ),
+          title: 'Namer App',
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: Color.fromARGB(255, 228, 72, 11)),
+          ),
+          // home: MyHomePage(),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => MyHomePage(),
+            '/generator': (context) => GeneratorPage(),
+            '/favorites': (context) => FavoritePage(),
+          }),
     );
   }
 }
@@ -58,52 +63,65 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    Widget page;
+  Widget getPage() {
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
-        break;
+        return GeneratorPage();
       case 1:
-        page = Placeholder();
-        break;
+        return FavoritePage();
       default:
         throw UnimplementedError('no widget for index $selectedIndex');
     }
+  }
 
-    return Scaffold(
-      body: Row(children: [
-        SafeArea(
-          child: NavigationRail(
-            extended: false,
-            destinations: [
-              NavigationRailDestination(
-                icon: Icon(Icons.home),
-                label: Text('Home'),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.favorite),
-                label: Text('Favorites'),
-              ),
-            ],
-            selectedIndex: selectedIndex,
-            onDestinationSelected: (value) {
-              print('selected: $value');
-              setState(() {
-                selectedIndex = value;
-              });
-            },
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      var page = getPage();
+
+      return Scaffold(
+        body: Row(children: [
+          SafeArea(
+            child: NavigationRail(
+              extended: constraints.maxWidth >= 600,
+              destinations: [
+                NavigationRailDestination(
+                  icon: Icon(Icons.home),
+                  label: Text('Home'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.favorite),
+                  label: Text('Favorites'),
+                ),
+              ],
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (value) {
+                print('selected: $value');
+                // setState(() {
+                //   selectedIndex = value;
+                // });
+                switch (value) {
+                  case 0:
+                    Navigator.pushReplacementNamed(context, '/');
+                    break;
+                  case 1:
+                    Navigator.pushReplacementNamed(context, '/favorites');
+                    break;
+                  default:
+                    throw UnimplementedError('no widget for index $value');
+                }
+              },
+            ),
           ),
-        ),
-        Expanded(
-          child: Container(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            child: page,
+          Expanded(
+            child: Container(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              child: page,
+            ),
           ),
-        ),
-      ]),
-    );
+        ]),
+      );
+    });
   }
 }
 
@@ -131,21 +149,25 @@ class GeneratorPage extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
+              Flexible(
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    appState.toggleFavorite();
+                  },
+                  icon: Icon(icon),
+                  label: Text('Like'),
+                ),
               ),
               SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                  appState.incrementBtnCounter();
-                },
-                child: Text('Next, Btn pressed: $btnCounter'),
-              ),
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () {
+                    appState.getNext();
+                    appState.incrementBtnCounter();
+                  },
+                  child: Text('Next, Btn pressed: $btnCounter'),
+                ),
+              )
             ],
           ),
         ],
