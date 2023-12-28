@@ -42,7 +42,7 @@ class _FavoritePageState extends State<FavoritePage> {
   Widget getContent() {
     switch (selectedIndex) {
       case 0:
-        return GeneratorPage();
+        return Center(child: Text('Home Page'));
       case 1:
         return Center(
           child: Column(
