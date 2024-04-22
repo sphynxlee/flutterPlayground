@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'favoritePage.dart';
+import 'appLifecyclePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
             '/': (context) => MyHomePage(),
             '/generator': (context) => GeneratorPage(),
             '/favorites': (context) => FavoritePage(),
+            '/appLifecycle': (context) => AppLifecyclePage(),
           }),
     );
   }
@@ -69,6 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return GeneratorPage();
       case 1:
         return FavoritePage();
+      case 2:
+        return AppLifecyclePage();
       default:
         throw UnimplementedError('no widget for index $selectedIndex');
     }
@@ -93,6 +97,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.favorite),
                   label: Text('Favorites'),
                 ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.exit_to_app),
+                  label: Text('Exit'),
+                ),
               ],
               selectedIndex: selectedIndex,
               onDestinationSelected: (value) {
@@ -106,6 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     break;
                   case 1:
                     Navigator.pushReplacementNamed(context, '/favorites');
+                    break;
+                  case 2:
+                    Navigator.pushReplacementNamed(context, '/appLifecycle');
                     break;
                   default:
                     throw UnimplementedError('no widget for index $value');
