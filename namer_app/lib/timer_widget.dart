@@ -29,9 +29,17 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   void dispose() {
-    _elapsedTimeTimer.cancel();
-    _fiveSecondTimer.cancel();
+    _stopTimers();
     super.dispose();
+  }
+
+  void _stopTimers() {
+    if (_elapsedTimeTimer.isActive) {
+      _elapsedTimeTimer.cancel();
+    }
+    if (_fiveSecondTimer.isActive) {
+      _fiveSecondTimer.cancel();
+    }
   }
 
   void _startElapsedTimeTimer() {
@@ -44,11 +52,6 @@ class _TimerWidgetState extends State<TimerWidget> {
     _fiveSecondTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
       print('Five seconds elapsed');
     });
-  }
-
-  void _stopTimers() {
-    _elapsedTimeTimer.cancel();
-    _fiveSecondTimer.cancel();
   }
 
   @override
