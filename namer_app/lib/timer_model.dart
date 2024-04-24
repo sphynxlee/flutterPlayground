@@ -28,15 +28,7 @@ class TimerModel {
     isRunning = false;
   }
 
-  // // Method to get the elapsed time
-  // Duration get elapsedTime {
-  //   if (!isRunning) {
-  //     return endTime!.difference(startTime!);
-  //   } else {
-  //     return DateTime.now().difference(startTime!);
-  //   }
-  // }
-
+  // Method to get the elapsed time
   Duration get elapsedTime {
     if (!isRunning) {
       if (startTime != null && endTime != null) {

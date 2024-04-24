@@ -42,11 +42,21 @@ class _TimerListPageState extends State<TimerListPage> {
                   onPressed: () {
                     if (timer.isRunning) {
                       timer.stop();
+                      _timerManager.removeTimer(timer);
+                      setState(() {});
                     }
                   },
                 ),
               ],
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TimerDetailPage(timer: timer),
+                ),
+              );
+            },
           );
         },
       ),
