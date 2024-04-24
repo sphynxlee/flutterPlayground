@@ -25,7 +25,14 @@ class _TimerListPageState extends State<TimerListPage> {
         itemBuilder: (context, index) {
           final timer = _timerManager.timers[index];
           return ListTile(
-            title: TimerWidget(timer: timer),
+            title: TimerWidget(
+              timer: timer,
+              onTimerStopped: () {
+                setState(() {
+                  _stopTimers();
+                });
+              },
+            ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -69,5 +76,13 @@ class _TimerListPageState extends State<TimerListPage> {
         },
       ),
     );
+  }
+
+  void _stopTimers() {
+    for (final timer in _timerManager.timers) {
+      if (timer.isRunning) {
+        timer.stop();
+      }
+    }
   }
 }

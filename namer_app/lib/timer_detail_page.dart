@@ -19,7 +19,12 @@ class _TimerDetailPageState extends State<TimerDetailPage> {
         title: const Text('Timer Detail'),
       ),
       body: Center(
-        child: TimerWidget(timer: widget.timer),
+        child: TimerWidget(
+          timer: widget.timer,
+          onTimerStopped: () {
+            // You can add any additional logic here if needed
+          },
+        ),
       ),
     );
   }

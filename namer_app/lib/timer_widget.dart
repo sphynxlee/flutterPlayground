@@ -4,38 +4,61 @@ import 'timer_model.dart';
 
 class TimerWidget extends StatefulWidget {
   final TimerModel timer;
+  final VoidCallback onTimerStopped;
 
-  const TimerWidget({Key? key, required this.timer}) : super(key: key);
+  const TimerWidget({
+    Key? key,
+    required this.timer,
+    required this.onTimerStopped,
+  }) : super(key: key);
 
   @override
   _TimerWidgetState createState() => _TimerWidgetState();
 }
 
 class _TimerWidgetState extends State<TimerWidget> {
-  late Timer _timer;
+  late Timer _elapsedTimeTimer;
+  late Timer _fiveSecondTimer;
 
   @override
   void initState() {
     super.initState();
-    _startTimer();
+    _startElapsedTimeTimer();
+    _startFiveSecondTimer();
   }
 
   @override
   void dispose() {
-    _timer.cancel();
+    _elapsedTimeTimer.cancel();
+    _fiveSecondTimer.cancel();
     super.dispose();
   }
 
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+  void _startElapsedTimeTimer() {
+    _elapsedTimeTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {});
     });
   }
 
+  void _startFiveSecondTimer() {
+    _fiveSecondTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      print('Five seconds elapsed');
+    });
+  }
+
+  void _stopTimers() {
+    _elapsedTimeTimer.cancel();
+    _fiveSecondTimer.cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final elapsedTime = widget.timer.elapsedTime;
+    if (elapsedTime == Duration.zero) {
+      return const Text('Timer not started');
+    }
     return Text(
-      _formatDuration(widget.timer.elapsedTime),
+      _formatDuration(elapsedTime),
       style: const TextStyle(fontSize: 24),
     );
   }
