@@ -4,12 +4,10 @@ import 'timer_model.dart';
 
 class TimerWidget extends StatefulWidget {
   final TimerModel timer;
-  final VoidCallback onTimerStopped;
 
   const TimerWidget({
     Key? key,
     required this.timer,
-    required this.onTimerStopped,
   }) : super(key: key);
 
   @override
@@ -44,6 +42,7 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   void _startElapsedTimeTimer() {
     _elapsedTimeTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      print('`````````````````One second elapsed');
       setState(() {});
     });
   }

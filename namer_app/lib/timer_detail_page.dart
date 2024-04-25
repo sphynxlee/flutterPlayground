@@ -21,9 +21,6 @@ class _TimerDetailPageState extends State<TimerDetailPage> {
       body: Center(
         child: TimerWidget(
           timer: widget.timer,
-          onTimerStopped: () {
-            // You can add any additional logic here if needed
-          },
         ),
       ),
     );

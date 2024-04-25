@@ -27,11 +27,6 @@ class _TimerListPageState extends State<TimerListPage> {
           return ListTile(
             title: TimerWidget(
               timer: timer,
-              onTimerStopped: () {
-                setState(() {
-                  _stopTimers();
-                });
-              },
             ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
