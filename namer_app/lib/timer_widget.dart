@@ -42,14 +42,27 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   void _startElapsedTimeTimer() {
     _elapsedTimeTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      print('`````````````````One second elapsed');
-      setState(() {});
+      if (widget.timer.isRunning) {
+        if (mounted) {
+          print('`````````````````One second elapsed');
+          setState(() {});
+        }
+      } else {
+        timer.cancel();
+      }
     });
   }
 
   void _startFiveSecondTimer() {
     _fiveSecondTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
-      print('Five seconds elapsed');
+      if (widget.timer.isRunning) {
+        if (mounted) {
+          print('Five seconds elapsed');
+          setState(() {});
+        }
+      } else {
+        timer.cancel();
+      }
     });
   }
 
