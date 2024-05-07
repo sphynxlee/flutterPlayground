@@ -85,9 +85,7 @@ class EditableChipFieldExampleState extends State<EditableChipFieldExample> {
   Future<void> _onSearchChanged(String value) async {
     final List<String> results = await _suggestionCallback(value);
     setState(() {
-      _suggestions = results
-          .where((String topping) => !_toppings.contains(topping))
-          .toList();
+      _suggestions = results.where((String topping) => !_toppings.contains(topping)).toList();
     });
   }
 
@@ -235,10 +233,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> {
   }
 
   static int countReplacements(String text) {
-    return text.codeUnits
-        .where(
-            (int u) => u == ChipsInputEditingController.kObjectReplacementChar)
-        .length;
+    return text.codeUnits.where((int u) => u == ChipsInputEditingController.kObjectReplacementChar).length;
   }
 
   @override
@@ -252,10 +247,8 @@ class ChipsInputState<T> extends State<ChipsInput<T>> {
       style: widget.style,
       strutStyle: widget.strutStyle,
       controller: controller,
-      onChanged: (String value) =>
-          widget.onTextChanged?.call(controller.textWithoutReplacements),
-      onSubmitted: (String value) =>
-          widget.onSubmitted?.call(controller.textWithoutReplacements),
+      onChanged: (String value) => widget.onTextChanged?.call(controller.textWithoutReplacements),
+      onSubmitted: (String value) => widget.onSubmitted?.call(controller.textWithoutReplacements),
     );
   }
 }
@@ -296,20 +289,12 @@ class ChipsInputEditingController<T> extends TextEditingController {
   String get textWithReplacements => text;
 
   @override
-  TextSpan buildTextSpan(
-      {required BuildContext context,
-      TextStyle? style,
-      required bool withComposing}) {
-    final Iterable<WidgetSpan> chipWidgets =
-        values.map((T v) => WidgetSpan(child: chipBuilder(context, v)));
+  TextSpan buildTextSpan({required BuildContext context, TextStyle? style, required bool withComposing}) {
+    final Iterable<WidgetSpan> chipWidgets = values.map((T v) => WidgetSpan(child: chipBuilder(context, v)));
 
     return TextSpan(
       style: style,
-      children: <InlineSpan>[
-        ...chipWidgets,
-        if (textWithoutReplacements.isNotEmpty)
-          TextSpan(text: textWithoutReplacements)
-      ],
+      children: <InlineSpan>[...chipWidgets, if (textWithoutReplacements.isNotEmpty) TextSpan(text: textWithoutReplacements)],
     );
   }
 }
