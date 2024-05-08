@@ -8,9 +8,9 @@ class DatePickerExample extends StatefulWidget {
 }
 
 class _DatePickerExampleState extends State<DatePickerExample> {
-  DateTime date = DateTime(2016, 10, 26);
-  DateTime time = DateTime(2016, 5, 10, 22, 35);
-  DateTime dateTime = DateTime(2016, 8, 3, 17, 45);
+  // DateTime date = DateTime(2016, 10, 26);
+  // DateTime time = DateTime(2016, 5, 10, 22, 35);
+  DateTime startDateTime = DateTime.now();
 
   // This function displays a CupertinoModalPopup with a reasonable fixed height
   // which hosts CupertinoDatePicker.
@@ -111,29 +111,34 @@ class _DatePickerExampleState extends State<DatePickerExample> {
               // ),
               _DatePickerItem(
                 children: <Widget>[
-                  const Text('DateTime'),
+                  const Text('Start Date Time'),
                   CupertinoButton(
-                    // Display a CupertinoDatePicker in dateTime picker mode.
-                    onPressed: () => _showDialog(
-                      CupertinoDatePicker(
-                        initialDateTime: dateTime,
-                        use24hFormat: true,
-                        // This is called when the user changes the dateTime.
-                        onDateTimeChanged: (DateTime newDateTime) {
-                          setState(() => dateTime = newDateTime);
-                        },
-                      ),
-                    ),
-                    // In this example, the time value is formatted manually. You
-                    // can use the intl package to format the value based on the
-                    // user's locale settings.
-                    child: Text(
-                      '${dateTime.month}-${dateTime.day}-${dateTime.year} ${dateTime.hour}:${dateTime.minute}',
-                      style: const TextStyle(
-                        fontSize: 22.0,
-                      ),
-                    ),
-                  ),
+                      // Display a CupertinoDatePicker in startDateTime picker mode.
+                      onPressed: () => _showDialog(
+                            CupertinoDatePicker(
+                              initialDateTime: startDateTime,
+                              use24hFormat: true,
+                              // This is called when the user changes the startDateTime.
+                              onDateTimeChanged: (DateTime newDateTime) {
+                                setState(() => startDateTime = newDateTime);
+                              },
+                            ),
+                          ),
+                      // In this example, the time value is formatted manually. You
+                      // can use the intl package to format the value based on the
+                      // user's locale settings.
+                      child: Container(
+                        width: 300, // Set this to whatever width suits your layout
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          // '${startDateTime.month}-${startDateTime.day}-${startDateTime.year} ${startDateTime.hour}:${startDateTime.minute}',
+                          formatDate(startDateTime),
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                          ),
+                          softWrap: true,
+                        ),
+                      )),
                 ],
               ),
             ],
@@ -174,4 +179,22 @@ class _DatePickerItem extends StatelessWidget {
       ),
     );
   }
+}
+
+String formatDate(DateTime dateTime) {
+  // Array of weekday names
+  List<String> weekdays = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sunday"];
+
+  // Array of month names
+  List<String> months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+
+  // Building the formatted string
+  String weekday = weekdays[dateTime.weekday - 1];
+  String month = months[dateTime.month - 1];
+  int day = dateTime.day;
+  int year = dateTime.year;
+  int hour = dateTime.hour;
+  int minute = dateTime.minute;
+
+  return "$weekday $month $day $year ${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}";
 }
