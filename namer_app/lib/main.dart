@@ -86,10 +86,10 @@ class InputChipsWidget extends StatefulWidget {
   });
 
   @override
-  _InputChipsWidgetState createState() => _InputChipsWidgetState();
+  InputChipsWidgetState createState() => InputChipsWidgetState();
 }
 
-class _InputChipsWidgetState extends State<InputChipsWidget> {
+class InputChipsWidgetState extends State<InputChipsWidget> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -101,30 +101,47 @@ class _InputChipsWidgetState extends State<InputChipsWidget> {
             controller: widget.controller,
             decoration: InputDecoration(
               hintText: 'Add hardware',
-              border: OutlineInputBorder(),
+              border: InputBorder.none,
             ),
+            style: TextStyle(fontSize: 16),
             onFieldSubmitted: (value) {
               widget.onChipAdded(value);
             },
           ),
-        ...widget.chips.map((chip) => Chip(
-              label: Text(chip),
-              onDeleted: () => widget.onChipRemoved(chip),
-            )).toList(),
+        ...widget.chips
+            .map((chip) => Chip(
+                  label: Text(chip, style: TextStyle (fontSize: 16, overflow: TextOverflow.clip)),
+                  labelStyle: const TextStyle(color: Color(0xFF1D2129)),
+                  backgroundColor: const Color(0xFFF7F8FA),
+                  onDeleted: () => widget.onChipRemoved(chip),
+                  deleteIconColor: Colors.grey,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: const BorderSide(color: Colors.transparent),
+                  ),
+                ))
+            .toList(),
         if (widget.isAddingNewChip)
           TextFormField(
             controller: widget.controller,
             decoration: InputDecoration(
               hintText: 'Add hardware',
-              border: OutlineInputBorder(),
+              border: InputBorder.none,
             ),
+            style: TextStyle(fontSize: 16),
             onFieldSubmitted: (value) {
               widget.onChipAdded(value);
             },
           )
         else if (widget.chips.isNotEmpty)
           InputChip(
-            label: Text('+'),
+            label: Text('+',style: TextStyle (fontWeight: FontWeight.bold, fontSize: 16)),
+            labelStyle: const TextStyle(color: Color(0xFF1D2129)),
+            backgroundColor: const Color(0xFFF7F8FA),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: const BorderSide(color: Colors.transparent),
+            ),
             onPressed: () {
               widget.onAddingNewChipChanged(true);
             },
