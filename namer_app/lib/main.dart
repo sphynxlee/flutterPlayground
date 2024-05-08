@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'inputChips/input_chips_widget.dart';
+import 'dateTimePicker/date_time_picker.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,11 +21,10 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-
+class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +33,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: InputChipsWidget(
-            hintText: 'Add hardware',
-            onChipAdded: (value) {
-              print('Chips: $value');
-            }),
+        // child: InputChipsWidget(
+        //   hintText: 'Add hardware',
+        //   onChipAdded: (value) {
+        //     print('Chips: $value');
+        //   }
+        // ),
+        child: DatePickerExample(),
       ),
     );
   }
