@@ -25,6 +25,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<String> _chips = [];
   final TextEditingController _controller = TextEditingController();
+  bool _isAddingNewChip = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,10 @@ class _HomePageState extends State<HomePage> {
         child: InputChipsWidget(
           chips: _chips,
           controller: _controller,
+          isAddingNewChip: _isAddingNewChip,
           onChipAdded: _addChip,
+          onChipRemoved: _removeChip,
+          onAddingNewChipChanged: _setAddingNewChipState,
         ),
       ),
     );
@@ -47,6 +51,19 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _chips.add(value);
       _controller.clear();
+      _isAddingNewChip = false;
+    });
+  }
+
+  void _removeChip(String value) {
+    setState(() {
+      _chips.remove(value);
+    });
+  }
+
+  void _setAddingNewChipState(bool value) {
+    setState(() {
+      _isAddingNewChip = value;
     });
   }
 }
@@ -54,12 +71,18 @@ class _HomePageState extends State<HomePage> {
 class InputChipsWidget extends StatefulWidget {
   final List<String> chips;
   final TextEditingController controller;
+  final bool isAddingNewChip;
   final Function(String) onChipAdded;
+  final Function(String) onChipRemoved;
+  final Function(bool) onAddingNewChipChanged;
 
   InputChipsWidget({
     required this.chips,
     required this.controller,
+    required this.isAddingNewChip,
     required this.onChipAdded,
+    required this.onChipRemoved,
+    required this.onAddingNewChipChanged,
   });
 
   @override
@@ -73,55 +96,40 @@ class _InputChipsWidgetState extends State<InputChipsWidget> {
       spacing: 8.0,
       runSpacing: 4.0,
       children: [
-        if (widget.chips.isEmpty)
-          TextField(
+        if (widget.chips.isEmpty && !widget.isAddingNewChip)
+          TextFormField(
             controller: widget.controller,
             decoration: InputDecoration(
               hintText: 'Add hardware',
               border: OutlineInputBorder(),
             ),
-            onSubmitted: (value) {
+            onFieldSubmitted: (value) {
+              widget.onChipAdded(value);
+            },
+          ),
+        ...widget.chips.map((chip) => Chip(
+              label: Text(chip),
+              onDeleted: () => widget.onChipRemoved(chip),
+            )).toList(),
+        if (widget.isAddingNewChip)
+          TextFormField(
+            controller: widget.controller,
+            decoration: InputDecoration(
+              hintText: 'Add hardware',
+              border: OutlineInputBorder(),
+            ),
+            onFieldSubmitted: (value) {
               widget.onChipAdded(value);
             },
           )
-        else
-          ...widget.chips.map((chip) => Chip(label: Text(chip))).toList(),
-        if (widget.chips.isNotEmpty)
+        else if (widget.chips.isNotEmpty)
           InputChip(
             label: Text('+'),
             onPressed: () {
-              _showInputDialog();
+              widget.onAddingNewChipChanged(true);
             },
           ),
       ],
-    );
-  }
-
-  void _showInputDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Add New Input'),
-          content: TextField(
-            controller: widget.controller,
-            decoration: InputDecoration(hintText: 'Enter input'),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                widget.onChipAdded(widget.controller.text);
-                Navigator.pop(context);
-              },
-              child: Text('Add'),
-            ),
-          ],
-        );
-      },
     );
   }
 }
